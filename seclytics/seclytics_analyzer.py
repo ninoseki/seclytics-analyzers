@@ -41,7 +41,7 @@ class SeclyticsAnalyzer(Analyzer):
         predicate = "Analyze"
 
         report = raw["report"]
-        total = report["passive_dns"].length if "passive_dns" in report else 0
+        total = len(report["passive_dns"]) if "passive_dns" in report else 0
 
         if total <= 1:
             value = "{} result".format(total)
