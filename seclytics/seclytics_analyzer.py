@@ -2,7 +2,6 @@
 from cortexutils.analyzer import Analyzer
 from seclytics import Seclytics
 from seclytics.exceptions import InvalidAccessToken, OverQuota
-import json
 
 
 class SeclyticsAnalyzer(Analyzer):
@@ -25,7 +24,7 @@ class SeclyticsAnalyzer(Analyzer):
             self.report({
                 'type': self.data_type,
                 'query': query,
-                'report': json.dumps(report.intel)
+                'report': report.intel
             })
 
         except InvalidAccessToken as err:
@@ -40,9 +39,10 @@ class SeclyticsAnalyzer(Analyzer):
         level = "info"
         namespace = "Seclytics"
         predicate = "Analyze"
-        total = 0
 
-        total = raw['passive_dns'].length
+        report = raw["report"]
+        total = report["passive_dns"].length if "passive_dns" in report else 0
+
         if total <= 1:
             value = "{} result".format(total)
             taxonomies.append(self.build_taxonomy(
