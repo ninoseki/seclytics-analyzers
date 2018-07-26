@@ -1,0 +1,22 @@
+{
+  "name": "Seclytics_Domaion",
+  "author": "ninoseki",
+  "license": "MIT",
+  "url": "https://github.com/ninoseki/seclytics-analyzers",
+  "version": "0.1.0",
+  "description": "Search domain on Seclytics",
+  "dataTypeList": ["domain"],
+  "command": "seclytics/seclytics_analyzer.py",
+  "config": {
+    "type": "domain"
+  },
+  "configurationItems": [
+    {
+      "name": "token",
+      "description": "API token for Seclytics",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ]
+}
