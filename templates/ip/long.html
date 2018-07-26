@@ -1,0 +1,62 @@
+<div class="panel panel-info" ng-if="success">
+    <div class="panel-heading">
+      General information
+    </div>
+    <div class="panel-body">
+      <dl class="dl-horizontal">
+        <dt>RIR</dt>
+        <dd>{{content.report.rir.name || '-'}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Country</dt>
+        <dd>{{content.report.country.name || '-'}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>CIDR</dt>
+        <dd>{{content.report.cidr.block || '-'}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>ASN</dt>
+        <dd>{{content.report.asn.description || '-'}}</dd>
+      </dl>
+    </div>
+
+    <div class="panel panel-info" ng-if="::content.report.passive_dns" ng-init="passive_dns_limit = 20">
+      <div class="panel-heading">
+        Passive DNS
+      </div>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <tr>
+            <th>Domain</th>
+            <th>Hostname</th>
+            <th>Answer IP</th>
+            <th>Answer text</th>
+            <th>Answer type</th>
+            <th>First seen at</th>
+            <th>Last seen at</th>
+            <th>Feed</th>
+          </tr>
+          <tr ng-repeat="record in content.report.passive_dns | limitTo:passive_dns_limit">
+            <td>{{ record.domain }}</td>
+            <td>{{ record.hostname }}</td>
+            <td>{{ record.answer_ip }}</td>
+            <td>{{ record.answer_text }}</td>
+            <td>{{ record.answer_type }}</td>
+            <td>{{ record.first_seen_at }}</td>
+            <td>{{ record.last_seen_at }}</td>
+            <td>{{ record.feed }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-danger" ng-if="!success">
+    <div class="panel-heading">
+      <strong>{{artifact.data | fang}}</strong>
+    </div>
+    <div class="panel-body">
+      {{content.errorMessage}}
+    </div>
+  </div>

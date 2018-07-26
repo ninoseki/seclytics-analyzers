@@ -1,0 +1,22 @@
+{
+  "name": "Seclytics_IP",
+  "author": "ninoseki",
+  "license": "MIT",
+  "url": "https://github.com/ninoseki/seclytics-analyzers",
+  "version": "0.1.0",
+  "description": "Search IP on Seclytics",
+  "dataTypeList": ["ip"],
+  "command": "seclytics/seclytics_analyzer.py",
+  "config": {
+    "type": "ip"
+  },
+  "configurationItems": [
+    {
+      "name": "token",
+      "description": "API token for Seclytics",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ]
+}

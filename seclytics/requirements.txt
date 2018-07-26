@@ -1,0 +1,2 @@
+cortexutils
+git+git://github.com/seclytics/python-client#egg=seclytics
