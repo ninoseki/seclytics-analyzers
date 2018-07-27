@@ -1,21 +1,67 @@
-<div class="panel panel-info" ng-if="success">
-  <div class="panel-heading">
-    General information
+<div ng-if="success">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      General information
+    </div>
+    <div class="panel-body">
+      <dl class="dl-horizontal">
+        <dt>Domain</dt>
+        <dd>{{content.report.domain || '-'}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Domain registration</dt>
+        <dd>{{content.report.domain_registration.created_on || '-'}}</dd>
+      </dl>
+    </div>
   </div>
-  <div class="panel-body">
-    <dl class="dl-horizontal">
-      <dt>Domain</dt>
-      <dd>{{content.report.domain || '-'}}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-      <dt>Domain registration</dt>
-      <dd>{{content.report.domain_registration.created_on || '-'}}</dd>
-    </dl>
+
+  <div class="panel panel-info" ng-if="::content.report.prediction">
+    <div class="panel-heading">
+      Prediction
+    </div>
+    <div class="panel-body">
+      <dl class="dl-horizontal">
+        <dt>Cluster</dt>
+        <dd>{{content.report.prediction.cluster || '-'}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Category</dt>
+        <dd>{{content.report.prediction.category || '-'}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>CIDR</dt>
+        <dd>{{content.report.prediction.cidr || '-'}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Predicted at</dt>
+        <dd>{{content.report.prediction.predicted_at || '-'}}</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="panel panel-info" ng-if="::content.report.history">
+    <div class="panel-heading">
+      History
+    </div>
+    <div class="panel-body">
+      <dl class="dl-horizontal">
+        <dt>First seen at</dt>
+        <dd>{{content.report.history.first_seen_at || '-'}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Last seen at</dt>
+        <dd>{{content.report.history.last_seen_at || '-'}}</dd>
+      </dl>
+    </div>
   </div>
 
   <div class="panel panel-info" ng-if="::content.report.passive_dns" ng-init="passive_dns_limit = 20">
     <div class="panel-heading">
       Passive DNS
+      <span class="pull-right" ng-show="::content.report.passive_dns.length > 20">
+        <a href ng-show="passive_dns_limit===20" ng-click="passive_dns_limit = undefined">Show All ({{::content.report.passive_dns.length}})</a>
+        <a href ng-show="!passive_dns_limit" ng-click="passive_dns_limit = 20">Show less</a>
+      </span>
     </div>
     <div class="panel-body">
       <table class="table table-hover">
@@ -29,7 +75,7 @@
           <th>Last seen at</th>
           <th>Feed</th>
         </tr>
-        <tr ng-repeat="record in content.report.passive_dns | limitTo:passive_dns_limit">
+        <tr ng-repeat="record in content.report.passive_dns | limitTo:passive_dns_limit | orderBy:'-first_seen_at'">
           <td>{{ record.domain }}</td>
           <td>{{ record.hostname }}</td>
           <td>{{ record.answer_ip }}</td>
